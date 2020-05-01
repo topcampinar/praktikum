@@ -71,6 +71,7 @@ class ShortestPath:
         for key,value in graph_dictionary.items():
             costs[key] = self.get_shortestpath(key, target_nr,graph_dictionary)
 
+        print("path costs: ", costs)
         return costs
         #costs[0] = self.get_shortestpath(0, self.target ,graph_dictionary)
 
@@ -94,13 +95,17 @@ class ShortestPath:
         unseen_cell_values = []
         unseen_cell_values.append(0)
 
+        #print(unseen_cells)
+
         visited_cells = []
 
         while (len(unseen_cells) > 0):
+            #print(unseen_cells)
 
             index = unseen_cell_values.index(min(unseen_cell_values))
             cell = unseen_cells.pop(index)
             dist = unseen_cell_values.pop(index)
+            #print(len(unseen_cells), index, cell, dist)
 
             neighbors = graph_dictionary[cell]
 
@@ -115,17 +120,20 @@ class ShortestPath:
                     distance_costs[x][y] = update_cost
 
                 if neighbor not in visited_cells:
-                    unseen_cells.append(neighbor)
-                    unseen_cell_values.append(update_cost)
+                    if neighbor not in unseen_cells:
+                        unseen_cells.append(neighbor)
+                        unseen_cell_values.append(update_cost)
 
                 visited_cells.append(cell)
+            #print("end ", unseen_cells)
 
 
         x = int(destination / size)
         y = destination % size
 
+        #print("distance costs: ", distance_costs)
         return round(distance_costs[x][y], 2)
-        #print(distance_costs)
+
 
 
 

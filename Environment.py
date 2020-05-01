@@ -237,6 +237,7 @@ class Environment:
             else:
                 block_costs[x][y] = dijkstra_costs[dc]
 
+        print(block_costs)
         self.block_costs = block_costs
 
     def update_pedestrian_avoidance_cost(self, pedestrian, cost_for_pedestrian):
@@ -269,6 +270,7 @@ class Environment:
                             if py == j:
                                 cost_for_pedestrian[i][j] = math.inf
             p = p + 1
+        print("end of while")
         return cost_for_pedestrian
 
 
@@ -289,7 +291,7 @@ class Environment:
         newx = i
         newy = j
         size = self.size
-        #print(block_costs)
+        print("block costs: ", block_costs)
 
         if (i - 1) >= 0:
             if (j - 1) >= 0:

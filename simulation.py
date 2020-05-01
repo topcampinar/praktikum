@@ -21,7 +21,7 @@ def get_model_environment():
                      "For pedestrians: 'p x y', where x and y indicate the x and y coordinate locations.\n\n"
                      "When you are done, please write 'exit'. Thank you!\n\n")
 
-    size = int(input("Please indicate the area length\n"))
+    size = int(input("Please indicate the area length (e.g. 7 for 7x7 cell space)\n"))
 
     target = input("\nPlease indicate the target location with a space between. (ex: '25 25')\n")
 
