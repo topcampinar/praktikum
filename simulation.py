@@ -25,6 +25,8 @@ def get_model_environment():
 
     target = input("\nPlease indicate the target location with a space between. (ex: '25 25')\n")
 
+    rmax = int(input("\nPlease indicate the minimum distance between pedestrians for pedestrian avoidance.\n"))
+
     sys.stdout.write("\nPlease indicate the location of obstacles OR pedestrians as stated below, with locations, from "
                      "0 until cell size you provided (that is excluded.)\n\nFor obstacles: 'o x y'"
                      ", where x and y indicate the x and y coordinate locations.\nFor pedestrians: 'p x y', where x and "
@@ -65,13 +67,13 @@ def get_model_environment():
                     p = Pedestrian(x, y)
                     pedestrian_list.append(p)
 
-    init_simulation(size, pedestrian_list, obstacle_list, target)
+    init_simulation(size, pedestrian_list, obstacle_list, target, rmax)
 
-def init_simulation(s, p, o, t):
+def init_simulation(s, p, o, t, rmax):
 
-    simulation_environment = Environment(s, p, o, t)
+    simulation_environment = Environment(s, p, o, t, rmax)
     simulation_environment.create_environment()
-    simulation_environment.get_shortest_path()
+    simulation_environment.get_dijkstra_costs()
 
 
 if __name__ == '__main__':
