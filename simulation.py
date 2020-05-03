@@ -21,7 +21,17 @@ def get_model_environment():
                      "For pedestrians: 'p x y', where x and y indicate the x and y coordinate locations.\n\n"
                      "When you are done, please write 'exit'. Thank you!\n\n")
 
-    size = int(input("Please indicate the area length (e.g. 7 for 7x7 cell space)\n"))
+    time = int(input("Please enter the simulation run time. (Ex: 25) If there is no specific time requirement, please write 0.\n"))
+
+    mode = int(input( "Please enter the simulation mode. Write 0 for simulation by using Eucledian Distance, and Write 1 for imulation by using a cost function. \n"))
+
+    while not(mode == 1 or mode == 0):
+        sys.stdout.write("Invalid mode.")
+        mode = int(input("Please enter the simulation mode. Write 0 for simulation by using Eucledian Distance, and Write 1 for imulation by using a cost function. \n"))
+
+    size_x = int(input("Please indicate the width of the area\n"))
+
+    size_y = int(input("Please indicate the height of the area\n"))
 
     target = input("\nPlease indicate the target location with a space between. (ex: '25 25')\n")
 
@@ -37,7 +47,8 @@ def get_model_environment():
     i = target.index(" ")
     x = int(target[0:i])
     y = int(target[i + 1:])
-    target = Target(x,y)
+    #target = Target(x,y)
+    target = Target(y,x)
 
     obstacle_list = []
     pedestrian_list = []
@@ -57,23 +68,29 @@ def get_model_environment():
             x = int(req[i1 + 1:i2])
             y = int(req[i2 + 1:])
 
-            if x >= size or y >= size or x < 0 or y < 0:
+            if x >= size_x or y >= size_y or x < 0 or y < 0:
                 sys.stdout.write("Invalid location.")
             else:
                 if "o" in req:
-                    o = Obstacle(x, y)
+                    #o = Obstacle(x, y)
+                    o = Obstacle(y, x)
                     obstacle_list.append(o)
                 elif "p" in req:
-                    p = Pedestrian(x, y)
+                    p = Pedestrian(y, x)
                     pedestrian_list.append(p)
 
-    init_simulation(size, pedestrian_list, obstacle_list, target, rmax)
+    init_simulation(time, size_x, size_y, pedestrian_list, obstacle_list, target, rmax, mode)
 
-def init_simulation(s, p, o, t, rmax):
+def init_simulation(time, sx, sy, p, o, t, rmax, mode):
 
-    simulation_environment = Environment(s, p, o, t, rmax)
+    simulation_environment = Environment(time, sx, sy, p, o, t, rmax)
     simulation_environment.create_environment()
-    simulation_environment.get_dijkstra_costs()
+    if mode == 0:
+        simulation_environment.run_simulation()
+    elif mode == 1:
+        simulation_environment.run_simulation3()
+        #simulation_environment.run_simulation2()
+    #simulation_environment.get_dijkstra_costs()
 
 
 if __name__ == '__main__':
