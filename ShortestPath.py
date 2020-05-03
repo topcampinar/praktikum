@@ -71,7 +71,6 @@ class ShortestPath:
         for key,value in graph_dictionary.items():
             costs[key] = self.get_shortestpath(key, target_nr,graph_dictionary)
 
-        print("path costs: ", costs)
         return costs
         #costs[0] = self.get_shortestpath(0, self.target ,graph_dictionary)
 
