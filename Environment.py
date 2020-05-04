@@ -151,6 +151,12 @@ class Environment:
                         least_dist = d
                         least_x = b.x
                         least_y = b.y
+                elif isinstance(b, Obstacle):
+                    d = math.sqrt(math.pow((tx - b.x), 2) + math.pow((ty - b.y), 2))
+                    if d < least_dist:
+                        least_dist = d
+                        least_x = x
+                        least_y = y
 
             if not((x+1) >= size_x):
                 b = environment_array[x+1][y]
@@ -170,6 +176,12 @@ class Environment:
                         least_dist = d
                         least_x = b.x
                         least_y = b.y
+                elif isinstance(b, Obstacle):
+                    d = math.sqrt(math.pow((tx - b.x), 2) + math.pow((ty - b.y), 2))
+                    if d < least_dist:
+                        least_dist = d
+                        least_x = x
+                        least_y = y
 
             if not((y-1) < 0):
                 b = environment_array[x][y-1]
@@ -189,6 +201,12 @@ class Environment:
                         least_dist = d
                         least_x = b.x
                         least_y = b.y
+                elif isinstance(b, Obstacle):
+                    d = math.sqrt(math.pow((tx - b.x), 2) + math.pow((ty - b.y), 2))
+                    if d < least_dist:
+                        least_dist = d
+                        least_x = x
+                        least_y = y
 
 
             if not((y+1) >= size_y):
@@ -209,6 +227,12 @@ class Environment:
                         least_dist = d
                         least_x = b.x
                         least_y = b.y
+                elif isinstance(b, Obstacle):
+                    d = math.sqrt(math.pow((tx - b.x), 2) + math.pow((ty - b.y), 2))
+                    if d < least_dist:
+                        least_dist = d
+                        least_x = x
+                        least_y = y
 
 
             if least_dist > 0:
@@ -403,13 +427,11 @@ class Environment:
         for p in pedestrian_list:
             x = p.x
             y = p.y
-            print('old:',x , y)
             costs_for_pedestrian = self.update_pedestrian_avoidance_cost(p, block_costs)
             newx, newy = self.get_new_location(costs_for_pedestrian, p)
             environment_array[x][y] = Block(x, y)
             p.x = newx
             p.y = newy
-            print('new: ', p.x, p.y)
             i = self.pedestrian_list.index(p)
             self.pedestrian_list[i].x = newx
             self.pedestrian_list[i].y = newy
@@ -448,7 +470,6 @@ class Environment:
                     if x == tx:
                         if y == ty:
                             pedestrians_reached = pedestrians_reached + 1
-                            #not_arrived.pop(i)
                             arrived_list.append(i)
 
                 for i in range(0, len(arrived_list)):
@@ -456,7 +477,7 @@ class Environment:
         else:
             time_passed = 0
             while time_passed < time:
-                print("Time ", time_passed)
+                print("Time : ", time_passed)
                 if pedestrians_reached < pedestrian_nr:
                     not_arrived = self.move_pedestrian_with_cost(not_arrived)
 
@@ -474,7 +495,6 @@ class Environment:
                         if x == tx:
                             if y == ty:
                                 pedestrians_reached = pedestrians_reached + 1
-                                #not_arrived.pop(i)
                                 arrived_list.append(i)
 
                     for i in range(0, len(arrived_list)):
@@ -500,62 +520,41 @@ class Environment:
                 speed = p.speed * 100
                 if p.meters < speed:
                     nr = nr + 1
-                    print('metreeeeee ', p.meters)
                     x = p.x
                     y = p.y
-
                     speed = p.speed * 100
-                    print('speed', speed)
-
-                    cells_walked = p.meters
-                    #stepsize = int(speed / cellsize)  # calculate number of steps for pedestrian
-                    steps_owed = p.owed
-                    newx, newy = x, y
                     i = self.pedestrian_list.index(p)
 
-                    #for j in range(stepsize):  # loop tamamlanınca 1 sn olucak
                     costs_for_pedestrian = self.update_pedestrian_avoidance_cost(p, block_costs)
                     newx, newy, cell_type = self.get_new_location2(costs_for_pedestrian, p)
-                    print(newx, newy)
                     environment_array[x][y] = Block(x, y)
                     p.x = newx
                     p.y = newy
 
                     if p.owed > 0:
                         p.meters = p.meters - p.owed
-                        print('p owed', p.owed)
                         p.owed = 0
-                        print('p meters', p.meters)
 
                     if cell_type == 0:
                         if speed-p.meters < cellsize:
                             p.owed = speed-p.meters
                             bitiren_insanlar += 1
                             p.meters = speed
-                            print('bitti? 1')
-                            print('p meters', p.meters)
-
                         else:
                             p.meters += cellsize
-                            print('p meters', p.meters)
-
                     else:
                         diagonal_cell_size = round(cellsize * math.sqrt(2), 2)
                         if speed-p.meters < diagonal_cell_size:
                             p.owed = speed-p.meters
                             bitiren_insanlar += 1
                             p.meters = speed
-                            print('bitti? 2')
-                            print('p meters', p.meters)
                         else:
                             p.meters += diagonal_cell_size
-                            print('p meters', p.meters)
 
                     self.pedestrian_list[i].x = newx
                     self.pedestrian_list[i].y = newy
                     self.pedestrian_list[i].owed = p.owed
                     self.pedestrian_list[i].meters = p.meters
-                    #self.pedestrian_list[i].meters = cells_walked
 
                     environment_array[newx][newy] = p
 
@@ -564,12 +563,9 @@ class Environment:
                 p = not_arrived[i]
                 x = p.x
                 y = p.y
-
                 if x == tx:
                     if y == ty:
-                        # not_arrived.pop(i)
                         arrived_list.append(i)
-
 
             for i in range(0, len(arrived_list)):
                  if len(not_arrived) > 0:
@@ -577,54 +573,26 @@ class Environment:
                     insan_sayisi = insan_sayisi - 1
                     pedestrians_reached = pedestrians_reached + 1
 
-            #print('arrived:::', arrived_list)
-            #print('bitiren insanlar', bitiren_insanlar)
-            #print('insan sayisi', insan_sayisi)
-            #print('not arrived ', not_arrived)
-
-
-        print('kac kez döndü ', nr)
         self.environment_array = environment_array
         self.visualize_environment2()
         return not_arrived, pedestrians_reached
 
     def run_simulation3(self):
         pedestrians_reached = 0
-
         pedestrian_list = self.pedestrian_list
         obstacle_list = self.obstacle_list
         target = self.target
         environment_array = self.environment_array
-        #arrived_list = []
         pedestrian_nr = len(pedestrian_list)
         not_arrived = pedestrian_list  # all pedestrians varmadı
-        self.assign_initial_costs()  # dijkstra costları
+        self.assign_initial_costs()  # dijkstra cost
         nr = 0
-        while pedestrians_reached < pedestrian_nr:  # targeta ulaşmamaış insanalr
+        while pedestrians_reached < pedestrian_nr:
 
-            not_arrived, pedestrians_reached = self.move_pedestrian_with_speed(not_arrived, 40, pedestrians_reached)  # bu 1 adım bir sn TEK ADIM
-
-            tx = target.x
-            ty = target.y
-
-            #arrived_list = []
-            #for i in range(0, len(not_arrived)):
-            #    p = not_arrived[i]
-            #    x = p.x
-            #    y = p.y
-
-            #    if x == tx:
-            #        if y == ty:
-            #            pedestrians_reached = pedestrians_reached + 1
-                        # not_arrived.pop(i)
-            #            arrived_list.append(i)
-
-            #for i in range(0, len(arrived_list)):
-            #    not_arrived.pop(arrived_list[i])
-            print('pedestrians_reached::  ', pedestrians_reached)
-            print('not_arrived. ', not_arrived)
+            not_arrived, pedestrians_reached = self.move_pedestrian_with_speed(not_arrived, 40, pedestrians_reached)
+            print('Number of pedestrians reached::  ', pedestrians_reached)
             nr = nr + 1
-        print('Kac sn????', nr)
+        print('Seconds after all pedestrians reached :: ', nr)
 
 
     def get_new_location2(self, block_costs, pedestrian):

@@ -80,7 +80,7 @@ def read_from_file(pedestrian_list, obstacle_list, size_x, size_y):
                 for line in file_in:
                     line.strip()
                     add_to_map(line, size_x, size_y, obstacle_list, pedestrian_list)
-                    sys.stdout.write("Objects are successfully read from the file.")
+            sys.stdout.write("Objects are successfully read from the file.")
             break
         except FileNotFoundError:
             sys.stdout.write("Invalid file path.")
