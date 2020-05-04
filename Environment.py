@@ -331,8 +331,6 @@ class Environment:
         newy = j
         size_x = self.size_x
         size_y = self.size_y
-        #print(block_costs)
-        print(block_costs)
         if (i - 1) >= 0:
             if (j - 1) >= 0:
                 cost = block_costs[i - 1][j - 1]
@@ -405,7 +403,7 @@ class Environment:
         for p in pedestrian_list:
             x = p.x
             y = p.y
-            print('old:', x,y)
+            print('old:',x , y)
             costs_for_pedestrian = self.update_pedestrian_avoidance_cost(p, block_costs)
             newx, newy = self.get_new_location(costs_for_pedestrian, p)
             environment_array[x][y] = Block(x, y)
@@ -486,13 +484,6 @@ class Environment:
 
                 time_passed = time_passed + 1
 
-    def move_diagonal(self, oldx, oldy, newx, newy, cellsize):
-        if oldx != newx and oldy != newy:
-            step = cellsize * 1.41
-        else:
-            step = cellsize
-        return step
-
     def move_pedestrian_with_speed(self, pedestrian_list, cellsize, pedestrians_reached):
         environment_array = self.environment_array
         block_costs = copy.deepcopy(self.block_costs)
@@ -523,7 +514,6 @@ class Environment:
                     i = self.pedestrian_list.index(p)
 
                     #for j in range(stepsize):  # loop tamamlanınca 1 sn olucak
-                    #print("stepsize %d out of %d", i, stepsize)
                     costs_for_pedestrian = self.update_pedestrian_avoidance_cost(p, block_costs)
                     newx, newy, cell_type = self.get_new_location2(costs_for_pedestrian, p)
                     print(newx, newy)
@@ -561,7 +551,6 @@ class Environment:
                             p.meters += diagonal_cell_size
                             print('p meters', p.meters)
 
-                #p.meters = cells_walked
                     self.pedestrian_list[i].x = newx
                     self.pedestrian_list[i].y = newy
                     self.pedestrian_list[i].owed = p.owed
@@ -647,8 +636,6 @@ class Environment:
         newy = j
         size_x = self.size_x
         size_y = self.size_y
-        #print(block_costs)
-        #print(block_costs)
 
         cell_type = 0
         if (i - 1) >= 0:

@@ -41,6 +41,7 @@ def get_model_environment():
                      "0 until cell size you provided (that is excluded.)\n\nFor obstacles: 'o x y'"
                      ", where x and y indicate the x and y coordinate locations.\nFor pedestrians: 'p x y', where x and "
                      "y indicate the x and y coordinate locations.\n\n"
+                     "If you want to add objects from txt file, please write 'text' and the name of the file as 'example.txt'\n\n"
                      "When you are done, please write 'exit'\n\n")
 
     target.strip()
@@ -59,27 +60,48 @@ def get_model_environment():
         if req == "exit":
             sys.stdout.write("\n")
             break
+        elif req == "text":
+            read_from_file(pedestrian_list, obstacle_list, size_x, size_y)
         elif not(any(i in ["o", "p"] for i in ["o", "p"])):
                 sys.stdout.write("Invalid object.")
         else:
-            i1 = req.index(" ")
-            i2 = req.index(" ", i1 + 1)
-
-            x = int(req[i1 + 1:i2])
-            y = int(req[i2 + 1:])
-
-            if x >= size_x or y >= size_y or x < 0 or y < 0:
-                sys.stdout.write("Invalid location.")
-            else:
-                if "o" in req:
-                    #o = Obstacle(x, y)
-                    o = Obstacle(y, x)
-                    obstacle_list.append(o)
-                elif "p" in req:
-                    p = Pedestrian(y, x)
-                    pedestrian_list.append(p)
+            add_to_map(req, size_x, size_y, obstacle_list, pedestrian_list)
 
     init_simulation(time, size_x, size_y, pedestrian_list, obstacle_list, target, rmax, mode)
+
+def read_from_file(pedestrian_list, obstacle_list, size_x, size_y):
+    while True:
+        filename = input("Please enter the path of text file. (ex: 'example.txt'). \n"
+                         "If you want to exit text mode please write 'q'. \n")
+        if filename == "q":
+            break
+        try:
+            with open(filename) as file_in:
+                for line in file_in:
+                    line.strip()
+                    add_to_map(line, size_x, size_y, obstacle_list, pedestrian_list)
+                    sys.stdout.write("Objects are successfully read from the file.")
+            break
+        except FileNotFoundError:
+            sys.stdout.write("Invalid file path.")
+
+def add_to_map(req, size_x, size_y, obstacle_list, pedestrian_list):
+    i1 = req.index(" ")
+    i2 = req.index(" ", i1 + 1)
+
+    x = int(req[i1 + 1:i2])
+    y = int(req[i2 + 1:])
+
+    if x >= size_x or y >= size_y or x < 0 or y < 0:
+        sys.stdout.write("Invalid location.")
+    else:
+        if "o" in req:
+            # o = Obstacle(x, y)
+            o = Obstacle(y, x)
+            obstacle_list.append(o)
+        elif "p" in req:
+            p = Pedestrian(y, x)
+            pedestrian_list.append(p)
 
 def init_simulation(time, sx, sy, p, o, t, rmax, mode):
 
