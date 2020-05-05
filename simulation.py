@@ -18,8 +18,8 @@ def get_model_environment():
     # and calls init_simulation method to initialize the simulation.
 
     sys.stdout.write("Hello! Welcome to our simulation. The instructions below are designed to have an interactive "
-                     "simulation process.\n\nAfter you read the instructions, please type 'ok' to continue.\n\n"
-                     "First, ypu have to indicate the environment area. Please type the length of cell size after "
+                     "simulation process.\n\n"
+                     "First, you have to indicate the environment area. Please type the length of cell size after "
                      "you are asked.\n\nThen, please indicate the target location with a space between. (ex: '25 25') "
                      "after you are asked. \n\nAfter that, please indicate the location of obstacles OR pedestrians as "
                      "stated below. \n\n\nFor obstacles: 'o x y', where x and y indicate the x and y coordinate "
