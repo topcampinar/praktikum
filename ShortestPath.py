@@ -1,6 +1,33 @@
 import math
 import queue
+from Obstacle import *
 class ShortestPath:
+
+    """
+    ShortestPath(environment_array, target)
+
+    This class is used to determine the shortest path from all cells to the target. Then these costs become
+    the initial costs of the cells.
+
+    Attributes:
+
+        environment_array: list
+            x coordinate of the Block on the simulation area.
+        target: Target
+            y coordinate of the Block on the simulation area.
+        size_x: int
+            width of the simulation area
+        size_y:int
+            height of the simulation area
+
+    Parameters:
+
+        environment_array: list
+            x coordinate of the Block on the simulation area.
+        target: Target
+            y coordinate of the Block on the simulation area.
+
+    """
 
     def __init__(self, environment_array, target):
 
@@ -10,6 +37,13 @@ class ShortestPath:
         self.size_x = len(environment_array[0])
 
     def obtain_graph(self):
+
+        # This method is used to obtain the neighbors of each cell. The cells are numbered and the numbers act as keys.
+        # Neighbors of each cell is stored in a dictionary, where key is the cell number.
+        # and all cells and their neighbor dictionary are also stored in a dictionary, where key is the cell number.
+        # The dictionary that holds the cell number and neighbors of the cell is returned.
+        # return:
+        #   graph_dictionary: dictionary
 
         environment_array = self.environment_array
         target = self.target
@@ -26,7 +60,6 @@ class ShortestPath:
 
                 if (i-1) >= 0:
                     if (j-1) >=0:
-                        #neighbor_nr = size * (i-1) + (j-1)
                         neighbor_nr = size_x * (j-1) + (i-1)
                         neighbor_list[neighbor_nr] = math.sqrt(2)
 
@@ -49,7 +82,6 @@ class ShortestPath:
                     neighbor_nr = size_x * j + (i+1)
                     neighbor_list[neighbor_nr] = 1
 
-
                 if (j - 1) >= 0:
                     neighbor_nr = size_x * (j - 1) + i
                     neighbor_list[neighbor_nr] = 1
@@ -61,16 +93,19 @@ class ShortestPath:
                 graph_dictionary[nr] = neighbor_list
                 nr = nr + 1
 
-        #print(graph_dictionary)
         return graph_dictionary
-
-        #print(graph_dictionary)
 
 
     def get_path_costs(self):
 
+        # This method is used to call get_shortespath method for each cell
+        # to calculate the shortest path from every cell to the target by using Dijkstra's Algorithm.
+        # The cost returned from get_shortespath method is stored on the dictionary called 'costs'
+        # where the key is, again, the cell number.
+        # return:
+        #   costs: dictionary.
+
         graph_dictionary = self.obtain_graph()
-        #size = len(self.environment_array)
         size_x = self.size_x
         size_y = self.size_y
         costs = {}
@@ -78,108 +113,29 @@ class ShortestPath:
         target_nr = size_x * self.target.x + self.target.y
         for key,value in graph_dictionary.items():
             costs[key] = self.get_shortestpath2(key, target_nr,graph_dictionary)
-            #costs[key] = self.get_shortestpath(key, target_nr,graph_dictionary)
 
         return costs
-        #costs[0] = self.get_shortestpath(0, self.target ,graph_dictionary)
-
-    def get_shortestpath(self, source, destination, graph_dictionary):
-
-        distance_costs = []
-        #size = len(self.environment_array)
-        size_x = self.size_x
-        size_y = self.size_y
-
-        for i in range(0, size_x):
-            distance_costs.append([])
-            for j in range(0, size_y):
-                distance_costs[i].append(math.inf)
-
-        #x = int(source / size)
-        #y = source % size
-
-        if int(source/size_x) > 1:
-            y = int(source / size_x)
-            x = int(source % size_x)
-        else:
-            y = 0
-            x = source
-
-        distance_costs[x][y] = 0
-
-        unseen_cells = []
-        unseen_cells.append(source)
-        unseen_cell_values = []
-        unseen_cell_values.append(0)
-
-        visited_cells = []
-
-        while (len(unseen_cells) > 0):
-
-            index = unseen_cell_values.index(min(unseen_cell_values))
-            cell = unseen_cells.pop(index)
-            dist = unseen_cell_values.pop(index)
-
-            neighbors = graph_dictionary[cell]
-
-            for neighbor in neighbors:
-                #x = int(neighbor / size)
-                #y = neighbor % size
-                if int(neighbor / size_x) > 1:
-                    y = int(neighbor / size_x)
-                    x = int(neighbor % size_x)
-                else:
-                    y = 0
-                    x = neighbor
-
-                current_cost = distance_costs[x][y]
-                update_cost = dist + neighbors[neighbor]
-
-                if update_cost < current_cost:
-                    distance_costs[x][y] = update_cost
-
-                if not(neighbor in visited_cells):
-                    if not(neighbor in unseen_cells):
-
-                        #if neighbor not in visited_cells:
-                        unseen_cells.append(neighbor)
-                        unseen_cell_values.append(update_cost)
-
-                visited_cells.append(cell)
-            #print(unseen_cells)
-
-
-        #x = int(destination / size)
-        #y = destination % size
-
-        print(destination)
-        if int(destination / size_x) > 1:
-            y = int(destination / size_x)
-            x = int(destination % size_x)
-        else:
-            y = 0
-            x = destination
-
-
-        return round(distance_costs[x][y], 2)
-        #print(distance_costs)
-
 
 
     def get_shortestpath2(self, source, destination, graph_dictionary):
 
+        # inputs: source = source Block cell number, destination = destination Block cell number, hence, Target number.
+        # This method is used to calculate the shortest path from a source to a destination.
+        # Cell numbers are used to obtain the x and y coordinates since numbers are given rowwise.
+        # Costs from source to all other cells are stored in distance_costs cell.
+        # if x and y are destination's coordinates, then, distance_costs[x][y] is the shortest path cost
+        # from source to destination.
+        # return: round(distance_costs[x][y], 2)
+
         distance_costs = []
-        #size = len(self.environment_array)
 
         size_x = self.size_x
         size_y = self.size_y
+        environment_array = self.environment_array
 
         for i in range(0, size_y):
             l = [math.inf] * size_x
             distance_costs.append(l)
-
-        #x = int(source / size)
-        #y = source % size
 
         if int(source/size_x) >= 1:
             x = int(source / size_x)
@@ -189,11 +145,6 @@ class ShortestPath:
             y = source
 
         distance_costs[x][y] = 0
-
-        #unseen_cells = []
-        #unseen_cells.append(source)
-        #unseen_cell_values = []
-        #unseen_cell_values.append(0)
 
         q = queue.PriorityQueue()
         q.put((0, source))
@@ -205,9 +156,6 @@ class ShortestPath:
 
         while not(q.empty()):
 
-            #index = unseen_cell_values.index(min(unseen_cell_values))
-            #cell = unseen_cells.pop(index)
-            #dist = unseen_cell_values.pop(index)
             element = q.get()
             dist = element[0]
             cell = element[1]
@@ -215,8 +163,6 @@ class ShortestPath:
             neighbors = graph_dictionary[cell]
 
             for neighbor in neighbors:
-                #x = int(neighbor / size)
-                #y = neighbor % size
 
                 if int(neighbor / size_x) >= 1:
                     x = int(neighbor / size_x)
@@ -226,22 +172,19 @@ class ShortestPath:
                     y = neighbor
 
                 current_cost = distance_costs[x][y]
-                update_cost = dist + neighbors[neighbor]
+                if not isinstance(environment_array[x][y], Obstacle):
+                    update_cost = dist + neighbors[neighbor]
+                else:
+                    update_cost = math.inf
 
                 if update_cost < current_cost:
                     distance_costs[x][y] = update_cost
 
-                #if not(neighbor in visited_cells):
                 if not(neighbor in unseen_cells):
                     unseen_cells.add(neighbor)
                     q.put((update_cost, neighbor))
 
             visited_cells.add(cell)
-            #print(unseen_cells)
-
-
-        #x = int(destination / size)
-        #y = destination % size
 
         if int(destination / size_x) >= 1:
             x = int(destination / size_x)
@@ -251,7 +194,6 @@ class ShortestPath:
             y = destination
 
         return round(distance_costs[x][y], 2)
-        #print(distance_costs)
 
 
 
