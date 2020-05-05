@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7e601f1-d3d4-4245-ad5c-cd153db463d5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bottleneck.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test6.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chicken.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Environment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test6.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +84,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588552804383</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="test cases added">
+      <created>1588631178901</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1588631178901</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -104,7 +109,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="reading objects from text file added" />
-    <option name="LAST_COMMIT_MESSAGE" value="reading objects from text file added" />
+    <MESSAGE value="test cases added" />
+    <option name="LAST_COMMIT_MESSAGE" value="test cases added" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
