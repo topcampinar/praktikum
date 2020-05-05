@@ -256,12 +256,13 @@ class Environment:
                 b = environment_array[i][j]
                 if isinstance(b, Block):
                     environment_structure = environment_structure + "*"
+                elif isinstance(b, Target):
+                    environment_structure = environment_structure + "T"
                 elif isinstance(b, Obstacle):
                     environment_structure = environment_structure + "O"
                 elif isinstance(b, Pedestrian):
                     environment_structure = environment_structure + "P"
-                elif isinstance(b, Target):
-                    environment_structure = environment_structure + "T"
+
             environment_structure = environment_structure + "\n"
 
         print(environment_structure)
@@ -411,11 +412,12 @@ class Environment:
                 newx = i
                 newy = j + 1
 
-        cost = block_costs[i][j]
-        if cost < least_cost:
-            least_cost = cost
-            newx = i
-            newy = j
+        if least_cost == math.inf:
+            cost = block_costs[i][j]
+            if cost < least_cost:
+                least_cost = cost
+                newx = i
+                newy = j
 
         return newx, newy
 
@@ -435,7 +437,9 @@ class Environment:
             i = self.pedestrian_list.index(p)
             self.pedestrian_list[i].x = newx
             self.pedestrian_list[i].y = newy
-            environment_array[newx][newy] = p
+            if not isinstance(environment_array[newx][newy], Target):
+                environment_array[newx][newy] = p
+            #environment_array[newx][newy] = p
 
         self.environment_array = environment_array
         return pedestrian_list
@@ -555,8 +559,8 @@ class Environment:
                     self.pedestrian_list[i].y = newy
                     self.pedestrian_list[i].owed = p.owed
                     self.pedestrian_list[i].meters = p.meters
-
-                    environment_array[newx][newy] = p
+                    if not isinstance(environment_array[newx][newy], Target):
+                        environment_array[newx][newy] = p
 
             arrived_list = []
             for i in range(0, len(not_arrived)):
@@ -667,11 +671,13 @@ class Environment:
                 newx = i
                 newy = j + 1
 
-        cost = block_costs[i][j]
-        if cost < least_cost:
-            least_cost = cost
-            newx = i
-            newy = j
+        if least_cost == math.inf:
+            cost = block_costs[i][j]
+            if cost < least_cost:
+                least_cost = cost
+                newx = i
+                newy = j
+
 
         return newx, newy, cell_type
 

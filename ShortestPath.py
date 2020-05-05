@@ -1,5 +1,6 @@
 import math
 import queue
+from Obstacle import *
 class ShortestPath:
 
     def __init__(self, environment_array, target):
@@ -173,6 +174,7 @@ class ShortestPath:
 
         size_x = self.size_x
         size_y = self.size_y
+        environment_array = self.environment_array
 
         for i in range(0, size_y):
             l = [math.inf] * size_x
@@ -226,7 +228,10 @@ class ShortestPath:
                     y = neighbor
 
                 current_cost = distance_costs[x][y]
-                update_cost = dist + neighbors[neighbor]
+                if not isinstance(environment_array[x][y], Obstacle):
+                    update_cost = dist + neighbors[neighbor]
+                else:
+                    update_cost = math.inf
 
                 if update_cost < current_cost:
                     distance_costs[x][y] = update_cost
