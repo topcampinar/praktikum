@@ -184,7 +184,6 @@ class Environment:
                 for i in range(0, len(arrived_list)):
                     j = not_arrived.index(arrived_list[i])
                     not_arrived.pop(j)
-
         else:
             time_passed = 0
             while time_passed < time:
@@ -205,14 +204,16 @@ class Environment:
                         if x == tx:
                             if y == ty:
                                 pedestrians_reached = pedestrians_reached + 1
-                                arrived_list.append(i)
+                                arrived_list.append(p)
 
                     for i in range(0, len(arrived_list)):
-                        not_arrived.pop(arrived_list[i])
+                        j = not_arrived.index(arrived_list[i])
+                        not_arrived.pop(j)
                 else:
                     self.visualize_environment2()
 
                 time_passed = time_passed + 1
+
 
     def move_pedestrian(self, pedestrian_list):
 
