@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a11ed6e-a7de-44d0-b462-8d4d3a0f4d04" name="Default Changelist" comment="">
+    <list default="true" id="b7e601f1-d3d4-4245-ad5c-cd153db463d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Block.py" beforeDir="false" afterPath="$PROJECT_DIR$/Block.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Environment.py" afterDir="false" />
@@ -10,6 +10,7 @@
       <change beforePath="$PROJECT_DIR$/ShortestPath.py" beforeDir="false" afterPath="$PROJECT_DIR$/ShortestPath.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Target.py" beforeDir="false" afterPath="$PROJECT_DIR$/Target.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation.py" afterDir="false" />
+
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,13 +27,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1b4zt4xV1ajsCZ84Q6y1hvpa1kc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -47,7 +49,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="simulation" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="simulation" type="PythonConfigurationType" factoryName="Python">
       <module name="praktikum" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -68,31 +70,54 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.simulation" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="8a11ed6e-a7de-44d0-b462-8d4d3a0f4d04" name="Default Changelist" comment="" />
+      <changelist id="b7e601f1-d3d4-4245-ad5c-cd153db463d5" name="Default Changelist" comment="" />
       <created>1587906365420</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587906365420</updated>
     </task>
-    <task id="LOCAL-00001" summary="Speed + Modified Dijkstra + Changes in GUI + Size changes">
-      <created>1588544580843</created>
+    <task id="LOCAL-00001" summary="reading objects from text file added">
+      <created>1588552804383</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1588544580843</updated>
+      <updated>1588552804383</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="test cases added">
+      <created>1588631178901</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1588631178901</updated>
+    </task>
+    <task id="LOCAL-00003" summary="edits on txt cases">
+      <created>1588641499340</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1588641499340</updated>
+    </task>
+    <task id="LOCAL-00004" summary="simulation.py edits">
+      <created>1588722400769</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1588722400770</updated>
+    </task>
+    <task id="LOCAL-00005" summary="simulation.py typo fix">
+      <created>1588723155759</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1588723155759</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -109,8 +134,15 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+
     <MESSAGE value="Speed + Modified Dijkstra + Changes in GUI + Size changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Speed + Modified Dijkstra + Changes in GUI + Size changes" />
+    <MESSAGE value="reading objects from text file added" />
+    <MESSAGE value="test cases added" />
+    <MESSAGE value="edits on txt cases" />
+    <MESSAGE value="simulation.py edits" />
+    <MESSAGE value="simulation.py typo fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="simulation.py typo fix" />
+
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

@@ -264,6 +264,12 @@ class Environment:
                         least_dist = d
                         least_x = b.x
                         least_y = b.y
+                elif isinstance(b, Obstacle):
+                    d = math.sqrt(math.pow((tx - b.x), 2) + math.pow((ty - b.y), 2))
+                    if d < least_dist:
+                        least_dist = d
+                        least_x = x
+                        least_y = y
 
                 elif isinstance(b, Obstacle):
                     d = math.sqrt(math.pow((tx-b.x), 2) + math.pow((ty-b.y), 2)) + c
@@ -340,6 +346,12 @@ class Environment:
                         least_dist = d
                         least_x = b.x
                         least_y = b.y
+                elif isinstance(b, Obstacle):
+                    d = math.sqrt(math.pow((tx - b.x), 2) + math.pow((ty - b.y), 2))
+                    if d < least_dist:
+                        least_dist = d
+                        least_x = x
+                        least_y = y
 
                 elif isinstance(b, Obstacle):
                     d = math.sqrt(math.pow((tx-b.x), 2) + math.pow((ty-b.y), 2)) + c
@@ -414,6 +426,12 @@ class Environment:
                         least_dist = d
                         least_x = b.x
                         least_y = b.y
+                elif isinstance(b, Obstacle):
+                    d = math.sqrt(math.pow((tx - b.x), 2) + math.pow((ty - b.y), 2))
+                    if d < least_dist:
+                        least_dist = d
+                        least_x = x
+                        least_y = y
 
                 elif isinstance(b, Obstacle):
                     d = math.sqrt(math.pow((tx-b.x), 2) + math.pow((ty-b.y), 2)) + c
@@ -440,6 +458,12 @@ class Environment:
                         least_dist = d
                         least_x = b.x
                         least_y = b.y
+                elif isinstance(b, Obstacle):
+                    d = math.sqrt(math.pow((tx - b.x), 2) + math.pow((ty - b.y), 2))
+                    if d < least_dist:
+                        least_dist = d
+                        least_x = x
+                        least_y = y
 
                 elif isinstance(b, Obstacle):
                     d = math.sqrt(math.pow((tx-b.x), 2) + math.pow((ty-b.y), 2)) + c
@@ -455,11 +479,10 @@ class Environment:
                 environment_array[least_x][least_y] = p
         self.environment_array = environment_array
 
+
     """
         MOVEMENT BY USING A COST FUNCTION.
     """
-
-
     def get_dijkstra_costs(self):
 
         # Initial cost values for each cell based on the cost function that employs
@@ -470,7 +493,6 @@ class Environment:
         sp = ShortestPath(self.environment_array, self.target)
         dijkstra_costs = sp.get_path_costs()
         return dijkstra_costs
-
 
     def assign_initial_costs(self):
 
@@ -547,7 +569,6 @@ class Environment:
             p = p + 1
         #print(cost_for_pedestrian)
         return cost_for_pedestrian
-
 
     def pedestrian_avoidance_cost(self, x1, x2, y1, y2):
 
@@ -640,7 +661,6 @@ class Environment:
                 newy = j
 
         return newx, newy
-
 
     def move_pedestrian_with_cost(self, pedestrian_list):
 
@@ -754,7 +774,6 @@ class Environment:
         # cell type is 0 if the pedestrian moved straightly, and 1 otherwise.
         # return: x and y coordinates of the next location and the cell type
 
-
         i = pedestrian.x
         j = pedestrian.y
         least_cost = math.inf
@@ -866,11 +885,8 @@ class Environment:
                     nr = nr + 1
                     x = p.x
                     y = p.y
-
                     speed = p.speed * 100
-                    cells_walked = p.meters
-                    steps_owed = p.owed
-                    newx, newy = x, y
+
                     i = self.pedestrian_list.index(p)
 
                     costs_for_pedestrian = self.update_pedestrian_avoidance_cost(p, block_costs)
@@ -888,7 +904,6 @@ class Environment:
                             p.owed = speed-p.meters
                             pedestrians_completed += 1
                             p.meters = speed
-
                         else:
                             p.meters += cellsize
 
@@ -898,7 +913,6 @@ class Environment:
                             p.owed = speed-p.meters
                             pedestrians_completed += 1
                             p.meters = speed
-
                         else:
                             p.meters += diagonal_cell_size
 
@@ -915,7 +929,6 @@ class Environment:
                 p = not_arrived[i]
                 x = p.x
                 y = p.y
-
                 if x == tx:
                     if y == ty:
                         arrived_list.append(i)
@@ -925,7 +938,6 @@ class Environment:
                     not_arrived.pop(arrived_list[i])
                     pedestrian_nr = pedestrian_nr - 1
                     pedestrians_reached = pedestrians_reached + 1
-
 
         self.environment_array = environment_array
         self.visualize_environment2()
@@ -943,30 +955,32 @@ class Environment:
 
         pedestrians_reached = 0
         time = self.time
+
         pedestrian_list = self.pedestrian_list
         obstacle_list = self.obstacle_list
         target = self.target
         environment_array = self.environment_array
         pedestrian_nr = len(pedestrian_list)
+
         not_arrived = pedestrian_list
         self.assign_initial_costs()
         nr = 0
+
         if time == None:
             while pedestrians_reached < pedestrian_nr:
-
                 not_arrived, pedestrians_reached = self.move_pedestrian_with_speed(not_arrived, 40, pedestrians_reached)
-
+                print('Number of pedestrians reached::  ', pedestrians_reached)
                 tx = target.x
                 ty = target.y
                 nr = nr + 1
         else:
             while nr < time:
                 while pedestrians_reached < pedestrian_nr:
-
                     not_arrived, pedestrians_reached = self.move_pedestrian_with_speed(not_arrived, 40,  pedestrians_reached)
-
+                    print('Number of pedestrians reached::  ', pedestrians_reached)
                     tx = target.x
                     ty = target.y
                     nr = nr + 1
 
+        print('Seconds after all pedestrians reached :: ', nr)
 
