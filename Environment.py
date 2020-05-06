@@ -55,7 +55,29 @@ class Environment:
         #self.run_simulation()
         #self.run_simulation2()
 
+    def visualize_environment2(self):
 
+        size_x = self.size_x
+        size_y = self.size_y
+        environment_array = self.environment_array
+        environment_structure = ""
+
+        for i in range(0, size_x):
+            for j in range(0, size_y):
+                #b = environment_array[i][j]
+                b = environment_array[i][j]
+                if isinstance(b, Block):
+                    environment_structure = environment_structure + "*"
+                elif isinstance(b, Target):
+                    environment_structure = environment_structure + "T"
+                elif isinstance(b, Obstacle):
+                    environment_structure = environment_structure + "O"
+                elif isinstance(b, Pedestrian):
+                    environment_structure = environment_structure + "P"
+
+            environment_structure = environment_structure + "\n"
+
+        print(environment_structure)
 
     def run_simulation(self):
         pedestrians_reached = 0
@@ -110,9 +132,6 @@ class Environment:
                     self.visualize_environment2()
 
                 time_passed = time_passed + 1
-
-
-
 
     def move_pedestrian(self, pedestrian_list):
 
@@ -243,37 +262,11 @@ class Environment:
 
         self.environment_array = environment_array
 
-    def visualize_environment2(self):
-
-        size_x = self.size_x
-        size_y = self.size_y
-        environment_array = self.environment_array
-        environment_structure = ""
-
-        for i in range(0, size_x):
-            for j in range(0, size_y):
-                #b = environment_array[i][j]
-                b = environment_array[i][j]
-                if isinstance(b, Block):
-                    environment_structure = environment_structure + "*"
-                elif isinstance(b, Target):
-                    environment_structure = environment_structure + "T"
-                elif isinstance(b, Obstacle):
-                    environment_structure = environment_structure + "O"
-                elif isinstance(b, Pedestrian):
-                    environment_structure = environment_structure + "P"
-
-            environment_structure = environment_structure + "\n"
-
-        print(environment_structure)
-
-
     def get_dijkstra_costs(self):
 
         sp = ShortestPath(self.environment_array, self.target)
         dijkstra_costs = sp.get_path_costs()
         return dijkstra_costs
-
 
     def assign_initial_costs(self):
 
@@ -336,7 +329,6 @@ class Environment:
                                 cost_for_pedestrian[i][j] = math.inf
             p = p + 1
         return cost_for_pedestrian
-
 
     def pedestrian_avoidance_cost(self, x1, x2, y1, y2):
 
@@ -420,7 +412,6 @@ class Environment:
                 newy = j
 
         return newx, newy
-
 
     def move_pedestrian_with_cost(self, pedestrian_list):
 
@@ -507,6 +498,88 @@ class Environment:
                     self.visualize_environment2()
 
                 time_passed = time_passed + 1
+
+    def get_new_location2(self, block_costs, pedestrian):
+
+        i = pedestrian.x
+        j = pedestrian.y
+        least_cost = math.inf
+        newx = i
+        newy = j
+        size_x = self.size_x
+        size_y = self.size_y
+
+        cell_type = 0
+        if (i - 1) >= 0:
+            if (j - 1) >= 0:
+                cost = block_costs[i - 1][j - 1]
+                if cost < least_cost:
+                    least_cost = cost
+                    newx = i - 1
+                    newy = j - 1
+                    cell_type = 1
+
+            if (j + 1) < size_y:
+                cost = block_costs[i - 1][j + 1]
+                if cost < least_cost:
+                    least_cost = cost
+                    newx = i - 1
+                    newy = j + 1
+                    cell_type = 1
+
+
+            cost = block_costs[i - 1][j]
+            if cost < least_cost:
+                least_cost = cost
+                newx = i - 1
+                newy = j
+
+        if (i + 1) < size_x:
+            if (j - 1) >= 0:
+                cost = block_costs[i + 1][j - 1]
+                if cost < least_cost:
+                    least_cost = cost
+                    newx = i + 1
+                    newy = j - 1
+                    cell_type = 1
+
+            if (j + 1) < size_y:
+                cost = block_costs[i + 1][j + 1]
+                if cost < least_cost:
+                    least_cost = cost
+                    newx = i + 1
+                    newy = j + 1
+                    cell_type = 1
+
+            cost = block_costs[i + 1][j]
+            if cost < least_cost:
+                least_cost = cost
+                newx = i + 1
+                newy = j
+
+        if (j - 1) >= 0:
+            cost = block_costs[i][j - 1]
+            if cost < least_cost:
+                least_cost = cost
+                newx = i
+                newy = j - 1
+
+        if (j + 1) < size_y:
+            cost = block_costs[i][j + 1]
+            if cost < least_cost:
+                least_cost = cost
+                newx = i
+                newy = j + 1
+
+        if least_cost == math.inf:
+            cost = block_costs[i][j]
+            if cost < least_cost:
+                least_cost = cost
+                newx = i
+                newy = j
+
+
+        return newx, newy, cell_type
 
     def move_pedestrian_with_speed(self, pedestrian_list, cellsize, pedestrians_reached):
         environment_array = self.environment_array
@@ -597,87 +670,4 @@ class Environment:
             print('Number of pedestrians reached::  ', pedestrians_reached)
             nr = nr + 1
         print('Seconds after all pedestrians reached :: ', nr)
-
-
-    def get_new_location2(self, block_costs, pedestrian):
-
-        i = pedestrian.x
-        j = pedestrian.y
-        least_cost = math.inf
-        newx = i
-        newy = j
-        size_x = self.size_x
-        size_y = self.size_y
-
-        cell_type = 0
-        if (i - 1) >= 0:
-            if (j - 1) >= 0:
-                cost = block_costs[i - 1][j - 1]
-                if cost < least_cost:
-                    least_cost = cost
-                    newx = i - 1
-                    newy = j - 1
-                    cell_type = 1
-
-            if (j + 1) < size_y:
-                cost = block_costs[i - 1][j + 1]
-                if cost < least_cost:
-                    least_cost = cost
-                    newx = i - 1
-                    newy = j + 1
-                    cell_type = 1
-
-
-            cost = block_costs[i - 1][j]
-            if cost < least_cost:
-                least_cost = cost
-                newx = i - 1
-                newy = j
-
-        if (i + 1) < size_x:
-            if (j - 1) >= 0:
-                cost = block_costs[i + 1][j - 1]
-                if cost < least_cost:
-                    least_cost = cost
-                    newx = i + 1
-                    newy = j - 1
-                    cell_type = 1
-
-            if (j + 1) < size_y:
-                cost = block_costs[i + 1][j + 1]
-                if cost < least_cost:
-                    least_cost = cost
-                    newx = i + 1
-                    newy = j + 1
-                    cell_type = 1
-
-            cost = block_costs[i + 1][j]
-            if cost < least_cost:
-                least_cost = cost
-                newx = i + 1
-                newy = j
-
-        if (j - 1) >= 0:
-            cost = block_costs[i][j - 1]
-            if cost < least_cost:
-                least_cost = cost
-                newx = i
-                newy = j - 1
-
-        if (j + 1) < size_y:
-            cost = block_costs[i][j + 1]
-            if cost < least_cost:
-                least_cost = cost
-                newx = i
-                newy = j + 1
-
-        if least_cost == math.inf:
-            cost = block_costs[i][j]
-            if cost < least_cost:
-                least_cost = cost
-                newx = i
-                newy = j
-
-
-        return newx, newy, cell_type
 

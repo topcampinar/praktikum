@@ -37,7 +37,7 @@ def get_model_environment():
 
         while not(mode == 1 or mode == 0):
             sys.stdout.write("Invalid mode.")
-            mode = int(input("Please enter the simulation mode. Write 0 for simulation by using Eucledian Distance, and Write 1 for imulation by using a cost function. \n"))
+            mode = int(input("Please enter the simulation mode. Write 0 for simulation by using Eucledian Distance, and Write 1 for simulation by using a cost function. \n"))
 
         size_x = int(input("Please indicate the width of the area\n"))
 

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7e601f1-d3d4-4245-ad5c-cd153db463d5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Environment.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -102,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588722400770</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="simulation.py typo fix">
+      <created>1588723155759</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1588723155759</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,7 +131,8 @@
     <MESSAGE value="test cases added" />
     <MESSAGE value="edits on txt cases" />
     <MESSAGE value="simulation.py edits" />
-    <option name="LAST_COMMIT_MESSAGE" value="simulation.py edits" />
+    <MESSAGE value="simulation.py typo fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="simulation.py typo fix" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
