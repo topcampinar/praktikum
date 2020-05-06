@@ -3,7 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="b7e601f1-d3d4-4245-ad5c-cd153db463d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Block.py" beforeDir="false" afterPath="$PROJECT_DIR$/Block.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/Environment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Obstacle.py" beforeDir="false" afterPath="$PROJECT_DIR$/Obstacle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pedestrian.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pedestrian.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShortestPath.py" beforeDir="false" afterPath="$PROJECT_DIR$/ShortestPath.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Target.py" beforeDir="false" afterPath="$PROJECT_DIR$/Target.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/simulation.py" afterDir="false" />
+
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -127,12 +134,15 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+
+    <MESSAGE value="Speed + Modified Dijkstra + Changes in GUI + Size changes" />
     <MESSAGE value="reading objects from text file added" />
     <MESSAGE value="test cases added" />
     <MESSAGE value="edits on txt cases" />
     <MESSAGE value="simulation.py edits" />
     <MESSAGE value="simulation.py typo fix" />
     <option name="LAST_COMMIT_MESSAGE" value="simulation.py typo fix" />
+
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
